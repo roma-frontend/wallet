@@ -100,7 +100,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       {/* ── Desktop sidebar ── */}
       <aside className="hidden md:flex flex-col w-64 shrink-0 border-r border-border bg-sidebar fixed top-0 left-0 h-full z-30">
         <div className="flex items-center px-6 py-5 border-b border-border">
-          <Logo />
+          <Link href="/" className="hover:opacity-80 transition-opacity" aria-label={t.appName}>
+            <Logo />
+          </Link>
         </div>
 
         <div className="px-3 pt-3">
@@ -171,7 +173,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <div className="flex-1 flex flex-col md:ml-64 min-h-screen">
         {/* Mobile top bar */}
         <header className="md:hidden flex items-center justify-between px-4 py-3 border-b border-border bg-background/80 backdrop-blur-xl sticky top-0 z-20">
-          <Logo small />
+          <Link href="/" className="hover:opacity-80 transition-opacity" aria-label={t.appName}>
+            <Logo small />
+          </Link>
           <div className="flex items-center gap-1">
             <PrivacyToggle />
             <ThemeToggle />
