@@ -151,10 +151,7 @@
 }
 
 .scroll-indicator-none {
-  scrollbar-gutter: stable;
-}
-
-html {
+  scrollbar-width: none;
   scrollbar-gutter: stable;
 }
 
@@ -162,29 +159,16 @@ html {
   scrollbar-width: thin;
   scrollbar-color: var(--border) transparent;
 }
-
 *::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
-
 *::-webkit-scrollbar-thumb {
   background: var(--border);
+  border-radius: 9999px;
 }
-
 *::-webkit-scrollbar-thumb:hover {
   background: var(--muted-foreground);
-}
-
-/* Hide scrollbar on mobile while keeping scroll functional */
-
-@media (max-width: 768px) {
-  * {
-    scrollbar-width: none;
-  }
-  *::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 /* ===========================================================
@@ -406,6 +390,15 @@ html {
   filter: none;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
 
+/* Hide scrollbar on mobile while keeping scroll functional */
 
-
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
