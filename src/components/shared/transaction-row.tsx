@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { createElement, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Pencil, Trash2, MoreHorizontal, Repeat, Paperclip } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -36,6 +36,7 @@ const REVEAL = 128;
 export function TransactionRow({ transaction }: Props) {
   const [editOpen, setEditOpen] = useState(false);
   const [offset, setOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const drag = useRef<{
     startX: number;
     startY: number;
@@ -49,7 +50,7 @@ export function TransactionRow({ transaction }: Props) {
   const { remove } = useTransactionMutations();
 
   const category = categories.find((c) => c._id === transaction.categoryId);
-  const Icon = getIcon(category?.icon ?? "ellipsis");
+  const iconComponent = getIcon(category?.icon ?? "ellipsis");
   const isExpense = transaction.type === "expense";
   const amountBase = convertToBase(transaction.amount, transaction.currency);
 
@@ -69,6 +70,7 @@ export function TransactionRow({ transaction }: Props) {
       base: offset,
       axis: "none",
     };
+    setIsDragging(true);
   };
 
   const onTouchMove = (e: React.TouchEvent) => {
@@ -93,6 +95,7 @@ export function TransactionRow({ transaction }: Props) {
     drag.current = null;
     if (!d || d.axis !== "x") return;
     setOffset(offset < -REVEAL / 2 ? -REVEAL : 0);
+    setIsDragging(false);
   };
 
   return (
@@ -134,15 +137,15 @@ export function TransactionRow({ transaction }: Props) {
           onClick={() => offset !== 0 && setOffset(0)}
           style={{
             transform: `translateX(${offset}px)`,
-            transition: drag.current ? "none" : "transform 0.25s ease",
+            transition: isDragging ? "none" : "transform 0.25s ease",
           }}
-          className="relative flex items-center gap-3 py-3 px-1 bg-card group hover:bg-muted/40"
+          className="relative flex flex-col sm:flex-row items-start sm:items-center gap-3 py-3 px-1 bg-card group hover:bg-muted/40"
         >
           <div
             className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
             style={{ background: (category?.color ?? "#64748b") + "20" }}
           >
-            <Icon className="w-4 h-4" style={{ color: category?.color ?? "#64748b" }} />
+            {createElement(iconComponent, { className: "w-4 h-4", style: { color: category?.color ?? "#64748b" } })}
           </div>
 
           <div className="flex-1 min-w-0">
