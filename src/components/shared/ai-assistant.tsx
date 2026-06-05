@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Bot, Loader2, Send, Sparkles, Trash2, X } from "lucide-react";
+import { Bot, Loader2, Send, Trash2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -76,7 +76,7 @@ export function AiAssistant() {
             "bg-primary text-primary-foreground shadow-lg shadow-primary/30 transition-transform hover:scale-105 active:scale-95",
           )}
         >
-          <Sparkles className="h-6 w-6" />
+          <Bot className="h-6 w-6" />
         </button>
       )}
 

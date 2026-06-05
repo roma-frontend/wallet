@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, TrendingDown, TrendingUp, Sparkles, type LucideIcon } from "lucide-react";
+import { Bot, Plus, TrendingDown, TrendingUp, type LucideIcon } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -61,7 +61,7 @@ export function MobileFab() {
           {
             key: "ai",
             label: t.ai.assistant,
-            icon: Sparkles,
+            icon: Bot,
             className: "bg-primary/15 text-primary",
             onClick: () => {
               close();
