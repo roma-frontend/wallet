@@ -1,6 +1,6 @@
 /* Դրամապանակ service worker — app-shell offline support. */
 const CACHE = "dramapanak-v1";
-const PRECACHE = ["/", "/manifest.json", "/icons/icon-192.png", "/icons/icon-512.png"];
+const PRECACHE = ["/", "/manifest.json", "/icons/icon.svg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

@@ -1,18 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Maskable icons need a 60% safe zone (centered) -->
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+    <linearGradient id="g" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
       <stop stop-color="#10b981"/>
       <stop offset="1" stop-color="#0d9488"/>
     </linearGradient>
-    <linearGradient id="card" x1="150" y1="195" x2="362" y2="335" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#ffffff" stop-opacity="0.95"/>
-      <stop offset="1" stop-color="#ffffff" stop-opacity="0.8"/>
-    </linearGradient>
   </defs>
-  <rect width="512" height="512" fill="url(#bg)"/>
-  <rect x="150" y="200" width="212" height="136" rx="26" fill="url(#card)"/>
-  <rect x="150" y="234" width="212" height="26" fill="#0d9488" fill-opacity="0.25"/>
-  <circle cx="326" cy="292" r="20" fill="#10b981"/>
-  <path d="M326 281v22M315 292h22" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
-  <rect x="176" y="296" width="68" height="13" rx="6" fill="#0d9488" fill-opacity="0.4"/>
+  <!-- Full-bleed background -->
+  <rect width="512" height="512" fill="url(#g)"/>
+  <!-- Wallet/card in safe zone (centered, ~60% of canvas = 307px) -->
+  <rect x="180" y="190" width="152" height="112" rx="22" fill="#ffffff" fill-opacity="0.95"/>
+  <!-- Green dot -->
+  <circle cx="296" cy="268" r="18" fill="#10b981"/>
 </svg>

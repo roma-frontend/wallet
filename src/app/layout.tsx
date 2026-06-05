@@ -63,12 +63,8 @@ export const metadata: Metadata = {
   appleWebApp: { capable: true, statusBarStyle: "default", title: "Դրամապանակ" },
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
       { url: "/icons/icon.svg", type: "image/svg+xml" },
-      { url: "/icons/icon-192.png", type: "image/png", sizes: "192x192" },
-      { url: "/icons/icon-512.png", type: "image/png", sizes: "512x512" },
     ],
-    apple: "/icons/apple-touch-icon.png",
   },
   openGraph: {
     type: "website",

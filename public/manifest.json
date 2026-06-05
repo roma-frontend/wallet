@@ -17,26 +17,14 @@
   "icons": [
     {
       "src": "/icons/icon.svg",
-      "sizes": "any",
+      "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icons/icon-512.png",
+      "src": "/icons/icon-maskable.svg",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icons/icon-maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "maskable"
     }
   ],
@@ -46,21 +34,21 @@
       "short_name": "Ծախս",
       "description": "Արագ ավելացրեք նոր ծախս",
       "url": "/expenses",
-      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/icons/icon.svg", "sizes": "512x512" }]
     },
     {
       "name": "Ավելացնել եկամուտ",
       "short_name": "Եկամուտ",
       "description": "Արագ ավելացրեք նոր եկամուտ",
       "url": "/income",
-      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/icons/icon.svg", "sizes": "512x512" }]
     },
     {
       "name": "Վերլուծություն",
       "short_name": "Վերլուծ.",
       "description": "Դիտեք ձեր ֆինանսական վերլուծությունը",
       "url": "/analytics",
-      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/icons/icon.svg", "sizes": "512x512" }]
     }
   ]
 }
