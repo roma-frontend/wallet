@@ -520,6 +520,18 @@ export const t = {
   },
 
 
+  wizard: {
+    smartStep: "Խելացի լրացում",
+    typeStep: "Տեսակ և կատեգորիա",
+    amountStep: "Գումար",
+    detailsStep: "Մանրամասներ",
+    extrasStep: "Հավելյալ",
+    next: "Առաջ",
+    back: "Հետ",
+    finish: "Ավարտել",
+    skip: "Բաց թողնել",
+  },
+
   form: {
     addTransaction: "Նոր գործարք",
     editTransaction: "Խմբագրել գործարքը",

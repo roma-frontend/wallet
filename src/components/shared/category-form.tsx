@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { createElement, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -99,7 +99,7 @@ export function CategoryForm({ initial, defaultType, onSuccess }: Props) {
         <Label>{t.category.icon}</Label>
         <div className="grid grid-cols-7 gap-2 max-h-40 overflow-y-auto p-1">
           {ICON_KEYS.map((key) => {
-            const Icon = getIcon(key);
+            const iconComponent = getIcon(key);
             const active = icon === key;
             return (
               <button
@@ -112,10 +112,10 @@ export function CategoryForm({ initial, defaultType, onSuccess }: Props) {
                   active ? "border-primary bg-primary/10" : "border-border hover:bg-muted",
                 )}
               >
-                <Icon
-                  className="w-4 h-4"
-                  style={{ color: active ? color : "var(--muted-foreground)" }}
-                />
+                {createElement(iconComponent, {
+                  className: "w-4 h-4",
+                  style: { color: active ? color : "var(--muted-foreground)" },
+                })}
               </button>
             );
           })}
