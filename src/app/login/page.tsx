@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { useTheme } from "next-themes";
 import {
@@ -48,8 +49,11 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
+  const [formKey, setFormKey] = useState(0);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    queueMicrotask(() => setMounted(true));
+  }, []);
 
   const isDark = resolvedTheme === "dark";
   const isSignUp = flow === "signUp";
@@ -72,7 +76,8 @@ export default function LoginPage() {
   };
 
   const switchFlow = () => {
-    setFlow(isSignUp ? "signIn" : "signUp");
+    setFlow((prev) => (prev === "signIn" ? "signUp" : "signIn"));
+    setFormKey((k) => k + 1);
     setError(null);
     setPassword("");
     setShowPassword(false);
@@ -101,8 +106,8 @@ export default function LoginPage() {
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-md flex-col justify-center px-6 py-12">
-        {/* Logo */}
-        <div className="mb-9 flex flex-col items-center text-center">
+        {/* Logo — clickable to reset / go home */}
+        <Link href="/" className="mb-9 flex flex-col items-center text-center hover:opacity-90 transition-opacity cursor-pointer rounded-xl">
           <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-[1.75rem] gradient-primary shadow-soft">
             <Wallet className="h-9 w-9 text-white" />
           </div>
@@ -110,10 +115,10 @@ export default function LoginPage() {
             {t.appName}
           </h1>
           <p className="mt-1.5 text-sm text-muted-foreground">{t.auth.tagline}</p>
-        </div>
+        </Link>
 
         {/* Card */}
-        <div className="rounded-[1.75rem] border border-border/60 bg-card/70 p-7 shadow-soft backdrop-blur-xl">
+        <div className="rounded-[1.75rem] border border-border/60 bg-card/70 p-7 shadow-2xl backdrop-blur-xl transition-all duration-300">
           <h2 className="text-xl font-bold text-foreground">
             {isSignUp ? t.auth.welcomeNew : t.auth.welcome}
           </h2>
@@ -121,7 +126,7 @@ export default function LoginPage() {
             {isSignUp ? t.auth.signUpTitle : t.auth.signInSubtitle}
           </p>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form key={`${flow}-${formKey}`} onSubmit={handleSubmit} className="space-y-4">
             {isSignUp && (
               <Field
                 id="name"
@@ -152,7 +157,7 @@ export default function LoginPage() {
               >
                 {t.auth.password}
               </label>
-              <div className="flex min-h-13 items-center overflow-hidden rounded-2xl border border-input bg-background/60 transition-colors focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+              <div className="flex min-h-13 items-center overflow-hidden rounded-2xl border border-input bg-background/60 transition-colors focus-within:border-primary focus-within:outline-2 focus-within:outline-primary/20">
                 <span className="flex h-13 w-12 items-center justify-center text-muted-foreground">
                   <Lock className="h-4.5 w-4.5" />
                 </span>
@@ -165,7 +170,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete={isSignUp ? "new-password" : "current-password"}
-                  placeholder={t.auth.passwordPlaceholder}
+                  placeholder={isSignUp ? t.auth.passwordPlaceholderSignup : t.auth.passwordPlaceholderLogin}
                   className="h-full flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground/70"
                 />
                 <button
@@ -174,7 +179,7 @@ export default function LoginPage() {
                   aria-label={
                     showPassword ? t.auth.hidePassword : t.auth.showPassword
                   }
-                  className="px-4 text-muted-foreground transition-colors hover:text-foreground"
+                  className="px-4 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:text-foreground"
                 >
                   {showPassword ? (
                     <EyeOff className="h-4.5 w-4.5" />
@@ -208,7 +213,7 @@ export default function LoginPage() {
             {error && (
               <div
                 role="alert"
-                className="flex items-center gap-2 rounded-xl border border-destructive/25 bg-destructive/10 px-3 py-2.5 text-sm text-destructive"
+                className="flex items-center gap-2 rounded-xl border border-destructive/25 bg-destructive/10 px-3 py-2.5 text-sm text-destructive animate-in fade-in slide-in-from-top-2 duration-200"
               >
                 <AlertCircle className="h-4 w-4 shrink-0" />
                 <span>{error}</span>
@@ -218,7 +223,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="flex h-13 w-full items-center justify-center gap-2 rounded-full gradient-primary text-base font-semibold text-white shadow-soft transition-opacity hover:opacity-95 disabled:opacity-70"
+              className="flex h-13 w-full items-center justify-center gap-2 rounded-full gradient-primary text-base font-semibold text-white shadow-soft transition-all hover:opacity-95 hover:shadow-lg active:scale-[0.98] disabled:opacity-70 disabled:pointer-events-none"
             >
               {loading ? (
                 <Loader2 className="h-5 w-5 animate-spin" />
@@ -248,7 +253,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={switchFlow}
-              className="font-semibold text-primary hover:underline"
+              className="font-semibold text-primary hover:underline rounded-sm"
             >
               {isSignUp ? t.auth.backToSignIn : t.auth.createOne}
             </button>
@@ -292,7 +297,7 @@ function Field({
       >
         {label}
       </label>
-      <div className="flex min-h-13 items-center overflow-hidden rounded-2xl border border-input bg-background/60 transition-colors focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+      <div className="flex min-h-13 items-center overflow-hidden rounded-2xl border border-input bg-background/60 transition-colors focus-within:border-primary focus-within:outline-2 focus-within:outline-primary/20">
         <span className="flex h-13 w-12 items-center justify-center text-muted-foreground">
           {icon}
         </span>

@@ -14,6 +14,8 @@ const nextConfig: NextConfig = {
   // Strip the "x-powered-by" header and compress responses for better scores.
   poweredByHeader: false,
   compress: true,
+  // Hide dev indicators in staging/preview builds (Next.js 16+)
+  devIndicators: false,
 };
 
 export default nextConfig;
