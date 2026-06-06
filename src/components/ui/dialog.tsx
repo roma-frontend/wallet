@@ -65,9 +65,7 @@ function DialogContent({
           className
         )}
         {...props}
-        // Opt out of Radix's description warning when no DialogDescription is
-        // provided; uses the supplied value when one is.
-        aria-describedby={props["aria-describedby"]}
+        aria-describedby={props["aria-describedby"] ?? ""}
       >
         {children}
         {showCloseButton && (

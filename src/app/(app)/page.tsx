@@ -12,6 +12,9 @@ import { AddTransactionDialog } from "@/components/shared/add-transaction-dialog
 import { TransactionRow } from "@/components/shared/transaction-row";
 import { AnomalyAlert } from "@/components/shared/anomaly-alert";
 import { AnimatedNumber } from "@/components/shared/animated-number";
+import { HealthScore } from "@/components/shared/health-score";
+import { SpendingHeatmap } from "@/components/shared/spending-heatmap";
+import { WeeklyDigest } from "@/components/shared/weekly-digest";
 import dynamic from "next/dynamic";
 const TrendChart = dynamic(
   () => import("@/components/charts/trend-chart").then((m) => m.TrendChart),
@@ -78,7 +81,7 @@ export default function DashboardPage() {
       {/* Greeting */}
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-balance">
             {greeting()}
             {name && <span className="text-gradient">, {name}</span>}
           </h1>
@@ -91,133 +94,158 @@ export default function DashboardPage() {
 
       <AnomalyAlert />
 
-      {/* Balance hero */}
-      {widgets.balance && (
-      <Card className="overflow-hidden border-none gradient-primary text-white shadow-soft">
-        <CardContent className="p-6">
-          <p className="text-sm/none text-white/80">{t.dashboard.balance}</p>
-          <p className="text-3xl md:text-4xl font-bold tabular mt-2">
-            <AnimatedNumber value={summary.balance} currency={baseCurrency} />
-          </p>
-          <div className="flex flex-wrap gap-x-6 gap-y-2 mt-4 text-sm">
-            <span className="flex items-center gap-1.5 text-white/90">
-              <TrendingUp className="w-4 h-4" />
-              {t.dashboard.totalIncome}: {formatCurrency(summary.income, baseCurrency, { compact: true })}
-            </span>
-            <span className="flex items-center gap-1.5 text-white/90">
-              <TrendingDown className="w-4 h-4" />
-              {t.dashboard.totalExpense}: {formatCurrency(summary.expense, baseCurrency, { compact: true })}
-            </span>
-            {accounts.length > 0 && (
-              <Link
-                href="/accounts"
-                className="flex items-center gap-1.5 text-white/90 hover:text-white transition-colors"
-              >
+      {/* Bento Grid Dashboard */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
+        {/* Balance Hero — col-span-8 on desktop */}
+        {widgets.balance && (
+          <Card
+            className="md:col-span-8 overflow-hidden border-none gradient-primary text-white shadow-soft"
+            style={{ viewTransitionName: "balance-hero" } as React.CSSProperties}
+          >
+            <CardContent className="p-6">
+              <p className="text-sm/none text-white/80">{t.dashboard.balance}</p>
+              <p className="text-3xl md:text-4xl font-bold tabular mt-2">
+                <AnimatedNumber value={summary.balance} currency={baseCurrency} />
+              </p>
+              <div className="flex flex-wrap gap-x-6 gap-y-2 mt-4 text-sm">
+                <span className="flex items-center gap-1.5 text-white/90">
+                  <TrendingUp className="w-4 h-4" />
+                  {t.dashboard.totalIncome}: {formatCurrency(summary.income, baseCurrency, { compact: true })}
+                </span>
+                <span className="flex items-center gap-1.5 text-white/90">
+                  <TrendingDown className="w-4 h-4" />
+                  {t.dashboard.totalExpense}: {formatCurrency(summary.expense, baseCurrency, { compact: true })}
+                </span>
+                {accounts.length > 0 && (
+                  <Link
+                    href="/accounts"
+                    className="flex items-center gap-1.5 text-white/90 hover:text-white transition-colors"
+                  >
+                    <Wallet className="w-4 h-4" />
+                    {t.netWorth.title}: {formatCurrency(netWorth, baseCurrency, { compact: true })}
+                  </Link>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Health Score — col-span-4, row-span-2 on desktop */}
+        <HealthScore />
+
+        {/* Savings Rate — col-span-4, row-span-2 on desktop */}
+        {widgets.stats && (
+          <Card className="md:col-span-4 md:row-span-2 p-4 md:p-5">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs md:text-sm text-muted-foreground font-medium">
+                {t.dashboard.savingsRate}
+              </span>
+              <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-primary">
                 <Wallet className="w-4 h-4" />
-                {t.netWorth.title}: {formatCurrency(netWorth, baseCurrency, { compact: true })}
-              </Link>
-            )}
-          </div>
-        </CardContent>
-      </Card>
-      )}
-
-      {/* Stat cards */}
-      {widgets.stats && (
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-        <StatCard
-          label={t.dashboard.totalIncome}
-          value={summary.income}
-          currency={baseCurrency}
-          icon={TrendingUp}
-          accent="text-success"
-          trend={summary.incomeTrend}
-          trendPositiveIsGood
-        />
-        <StatCard
-          label={t.dashboard.totalExpense}
-          value={summary.expense}
-          currency={baseCurrency}
-          icon={TrendingDown}
-          accent="text-destructive"
-          trend={summary.expenseTrend}
-          trendPositiveIsGood={false}
-        />
-        <StatCard
-          label={t.dashboard.savings}
-          value={summary.balance}
-          currency={baseCurrency}
-          icon={PiggyBank}
-          accent="text-primary"
-        />
-        <Card className="p-4 md:p-5">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs md:text-sm text-muted-foreground font-medium">
-              {t.dashboard.savingsRate}
-            </span>
-            <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-primary">
-              <Wallet className="w-4 h-4" />
+              </div>
             </div>
-          </div>
-          <p className="text-xl md:text-2xl font-bold tabular">
-            {formatPercent(Math.max(0, summary.savingsRate))}
-          </p>
-          <Progress value={Math.max(0, Math.min(100, summary.savingsRate))} className="mt-3 h-1.5" />
-        </Card>
-      </div>
-      )}
+            <p className="text-xl md:text-2xl font-bold tabular">
+              {formatPercent(Math.max(0, summary.savingsRate))}
+            </p>
+            <Progress value={Math.max(0, Math.min(100, summary.savingsRate))} className="mt-3 h-1.5" />
+            <div className="mt-4 pt-4 border-t border-border/50 space-y-3">
+              <div>
+                <p className="text-xs text-muted-foreground">{t.dashboard.savings}</p>
+                <p className="text-lg font-bold tabular text-primary">
+                  <AnimatedNumber value={summary.balance} currency={baseCurrency} compact />
+                </p>
+              </div>
+            </div>
+          </Card>
+        )}
 
-      {/* Trend + Donut */}
-      {widgets.charts && (
-      <div className="grid lg:grid-cols-3 gap-4">
-        <Card className="lg:col-span-2">
-          <CardHeader>
-            <CardTitle className="text-base">{t.dashboard.incomeVsExpense}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <TrendChart data={trend} currency={baseCurrency} />
-          </CardContent>
-        </Card>
+        {/* Income StatCard */}
+        {widgets.stats && (
+          <StatCard
+            className="md:col-span-4"
+            label={t.dashboard.totalIncome}
+            value={summary.income}
+            currency={baseCurrency}
+            icon={TrendingUp}
+            accent="text-success"
+            trend={summary.incomeTrend}
+            trendPositiveIsGood
+          />
+        )}
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">{t.dashboard.spendingByCategory}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {spending.length === 0 ? (
-              <EmptyState icon={Receipt} title={t.dashboard.noTransactions} />
-            ) : (
-              <>
-                <CategoryDonut
-                  data={spending.map((s) => ({
-                    name: s.category.name,
-                    value: s.amount,
-                    color: s.category.color,
-                  }))}
-                  currency={baseCurrency}
-                  centerLabel={t.dashboard.totalExpense}
-                  centerValue={summary.expense}
-                />
-                <ul className="mt-4 space-y-2">
-                  {spending.slice(0, 4).map((s) => (
-                    <li key={s.category._id} className="flex items-center gap-2 text-sm">
-                      <span
-                        className="w-2.5 h-2.5 rounded-full shrink-0"
-                        style={{ background: s.category.color }}
-                      />
-                      <span className="flex-1 truncate">{s.category.name}</span>
-                      <span className="text-muted-foreground tabular">
-                        {s.percent.toFixed(0)}%
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            )}
-          </CardContent>
-        </Card>
+        {/* Expense StatCard */}
+        {widgets.stats && (
+          <StatCard
+            className="md:col-span-4"
+            label={t.dashboard.totalExpense}
+            value={summary.expense}
+            currency={baseCurrency}
+            icon={TrendingDown}
+            accent="text-destructive"
+            trend={summary.expenseTrend}
+            trendPositiveIsGood={false}
+          />
+        )}
+
+        {/* Trend Chart — col-span-8 on desktop */}
+        {widgets.charts && (
+          <Card className="md:col-span-8">
+            <CardHeader>
+              <CardTitle className="text-base">{t.dashboard.incomeVsExpense}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <TrendChart data={trend} currency={baseCurrency} />
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Category Donut — col-span-4 on desktop */}
+        {widgets.charts && (
+          <Card className="md:col-span-4">
+            <CardHeader>
+              <CardTitle className="text-base">{t.dashboard.spendingByCategory}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {spending.length === 0 ? (
+                <EmptyState icon={Receipt} title={t.dashboard.noTransactions} />
+              ) : (
+                <>
+                  <CategoryDonut
+                    data={spending.map((s) => ({
+                      name: s.category.name,
+                      value: s.amount,
+                      color: s.category.color,
+                    }))}
+                    currency={baseCurrency}
+                    centerLabel={t.dashboard.totalExpense}
+                    centerValue={summary.expense}
+                  />
+                  <ul className="mt-4 space-y-2">
+                    {spending.slice(0, 4).map((s) => (
+                      <li key={s.category._id} className="flex items-center gap-2 text-sm">
+                        <span
+                          className="w-2.5 h-2.5 rounded-full shrink-0"
+                          style={{ background: s.category.color }}
+                        />
+                        <span className="flex-1 truncate">{s.category.name}</span>
+                        <span className="text-muted-foreground tabular">
+                          {s.percent.toFixed(0)}%
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        )}
       </div>
-      )}
+
+      {/* Weekly Digest + Heatmap row */}
+      <div className="grid md:grid-cols-2 gap-3 md:gap-4">
+        <WeeklyDigest />
+        <SpendingHeatmap />
+      </div>
 
       {/* Recent transactions */}
       {widgets.recent && (

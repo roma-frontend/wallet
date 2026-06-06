@@ -634,6 +634,19 @@ export const t = {
     csvImported: "ներմուծվեց գործարք",
     csvEmpty: "Վավեր տողեր չգտնվեցին",
   },
+
+  health: {
+    title: "Ֆինանսական առողջություն",
+    excellent: "Գերազանց",
+    good: "Լավ",
+    fair: "Միջին",
+    poor: "Ուշադրություն",
+    critical: "Կրիտիկական",
+    savingsRate: "Խնայողություն",
+    budgetAdherence: "Բյուջե",
+    debtRatio: "Պարտքեր",
+    goalProgress: "Նպատակներ",
+  },
 } as const;
 
 export const MONTHS_HY = [

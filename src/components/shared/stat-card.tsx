@@ -16,6 +16,7 @@ interface Props {
   /** When true a positive trend is good (green); for expenses set false. */
   trendPositiveIsGood?: boolean;
   sign?: boolean;
+  className?: string;
 }
 
 export function StatCard({
@@ -27,13 +28,14 @@ export function StatCard({
   trend,
   trendPositiveIsGood = true,
   sign,
+  className,
 }: Props) {
   const hasTrend = typeof trend === "number" && isFinite(trend) && trend !== 0;
   const up = (trend ?? 0) > 0;
   const good = up === trendPositiveIsGood;
 
   return (
-    <Card className="p-4 md:p-5 relative overflow-hidden group">
+    <Card className={cn("p-4 md:p-5 relative overflow-hidden group", className)}>
       <div className="flex items-center justify-between mb-3">
         <span className="text-xs md:text-sm text-muted-foreground font-medium">{label}</span>
         <div className={cn("w-8 h-8 rounded-lg bg-muted flex items-center justify-center", accent)}>

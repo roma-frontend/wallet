@@ -92,6 +92,7 @@
   --sidebar-accent-foreground: oklch(0.3 0.05 175);
   --sidebar-border: oklch(0.9 0.015 175);
   --sidebar-ring: oklch(0.62 0.14 165);
+  --glow-primary: oklch(0.62 0.14 165 / 0.15);
 }
 
 /* ===========================================================
@@ -109,7 +110,7 @@
   --secondary: oklch(0.27 0.03 185);
   --secondary-foreground: oklch(0.96 0.01 170);
   --muted: oklch(0.26 0.025 185);
-  --muted-foreground: oklch(0.71 0.03 175);
+  --muted-foreground: oklch(0.75 0.03 175);
   --accent: oklch(0.3 0.05 175);
   --accent-foreground: oklch(0.96 0.02 170);
   --destructive: oklch(0.7 0.19 20);
@@ -133,6 +134,7 @@
   --sidebar-accent-foreground: oklch(0.96 0.02 170);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.72 0.15 165);
+  --glow-primary: oklch(0.72 0.15 165 / 0.2);
 }
 
 @layer base {
@@ -144,6 +146,14 @@
     font-feature-settings: "ss01", "cv01";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+  .dark body {
+    background-image: radial-gradient(
+      ellipse at top,
+      oklch(0.22 0.03 185),
+      oklch(0.17 0.02 185) 60%
+    );
+    background-attachment: fixed;
   }
   html {
     @apply font-sans;
@@ -204,6 +214,50 @@
   }
   .tabular {
     font-variant-numeric: tabular-nums;
+  }
+
+  /* Borderless modern card — transparent border at rest, appears on hover */
+  .card-modern {
+    --card-border-rest: transparent;
+    --card-border-hover: color-mix(in oklch, var(--border) 50%, transparent);
+    border-color: var(--card-border-rest);
+    box-shadow: none;
+    transition:
+      border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .card-modern:hover {
+    border-color: var(--card-border-hover);
+    box-shadow:
+      0 8px 32px -8px oklch(0.2 0.02 175 / 0.12);
+    transform: translateY(-2px);
+  }
+  .dark .card-modern:hover {
+    --card-border-hover: oklch(1 0 0 / 10%);
+    box-shadow:
+      0 8px 32px -8px oklch(0 0 0 / 0.3),
+      0 0 20px var(--glow-primary);
+  }
+
+  /* Text balance for headings */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* View Transitions API — shared element animations */
+  ::view-transition-old(balance-hero),
+  ::view-transition-new(balance-hero) {
+    animation-duration: 0.4s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  ::view-transition-old(balance-hero) {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  ::view-transition-new(balance-hero) {
+    opacity: 1;
+    transform: scale(1);
   }
 
   /* Sweeping shimmer overlay for skeletons */

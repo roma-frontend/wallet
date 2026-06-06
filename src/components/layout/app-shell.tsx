@@ -106,20 +106,28 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
 
         <div className="px-3 pt-3">
-          <button
-            type="button"
+          <div
+            role="button"
+            tabIndex={0}
             onClick={() => openCommand(true)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openCommand(true);
+              }
+            }}
             className={cn(
-              "flex w-full items-center gap-2.5 rounded-xl border border-border bg-muted/40 px-3 py-2 text-sm text-muted-foreground transition-colors",
-              "hover:bg-muted hover:text-foreground",
+              "group flex w-full items-center gap-2.5 rounded-xl border border-border bg-muted/40 px-3 py-2 text-sm text-muted-foreground transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+              "hover:bg-muted hover:text-foreground hover:border-primary/30 hover:shadow-[0_0_0_3px_var(--primary)/0.08]",
+              "focus-within:w-full focus-within:border-primary/50 focus-within:shadow-[0_0_0_3px_var(--primary)/0.1] focus-within:bg-background",
             )}
           >
-            <Search className="w-4 h-4 shrink-0" />
+            <Search className="w-4 h-4 shrink-0 transition-colors group-hover:text-primary" />
             <span className="flex-1 text-left">{t.common.search}</span>
-            <kbd className="rounded border border-border bg-background px-1.5 py-0.5 text-[10px] font-medium tabular">
+            <kbd className="rounded border border-border bg-background px-1.5 py-0.5 text-[10px] font-medium tabular opacity-60 group-hover:opacity-100 transition-opacity">
               ⌘K
             </kbd>
-          </button>
+          </div>
         </div>
 
         <nav className="flex-1 overflow-y-auto py-4 px-3">
