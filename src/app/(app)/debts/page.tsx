@@ -303,7 +303,7 @@ function DebtCard({ debt }: { debt: DebtDoc }) {
             <span className="tabular font-semibold">{formatCurrency(debt.paid, debt.currency as never)}</span>
             <span className="text-muted-foreground tabular">{formatCurrency(debt.principal, debt.currency as never)}</span>
           </div>
-          <Progress value={pct} aria-label={`${t.debts.remaining} ${formatPercent(pct)}`} className="h-2" />
+          <Progress value={pct} aria-label={`${t.debts.remaining} ${pct.toFixed(0)}%`} className="h-2" />
         </div>
 
         <div className="flex items-center justify-between">
