@@ -73,7 +73,7 @@ export function AiAssistant() {
           aria-label={t.ai.assistant}
           className={cn(
             "fixed z-40 hidden h-14 w-14 items-center justify-center rounded-full md:bottom-6 md:right-6 md:flex",
-            "bg-primary text-primary-foreground shadow-lg shadow-primary/30 transition-transform hover:scale-105 active:scale-95",
+            "bg-primary text-primary-foreground text-white shadow-lg shadow-primary/30 transition-transform hover:scale-105 active:scale-95",
           )}
         >
           <Bot className="h-6 w-6" />
@@ -160,7 +160,7 @@ export function AiAssistant() {
                     className={cn(
                       "max-w-[80%] whitespace-pre-wrap rounded-2xl px-3.5 py-2.5 text-sm",
                       m.role === "user"
-                        ? "rounded-tr-sm bg-primary text-primary-foreground"
+                        ? "rounded-tr-sm bg-primary text-primary-foreground dark:text-white"
                         : "rounded-tl-sm bg-muted",
                     )}
                   >

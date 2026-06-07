@@ -70,7 +70,7 @@ export function SpendingHeatmap() {
                 cell.day === null ? "invisible" : "cursor-default",
               )}
               style={{
-                background: cell.day ? getIntensityColor(cell.amount, maxDaily) : undefined,
+                background: cell.day ? getIntensityColor(cell.amount, maxDaily) : undefined, color: cell.day ? (cell.amount / maxDaily > 0.5 ? "var(--primary-foreground)" : "inherit") : undefined,
               }}
               title={cell.day ? `${cell.day}: ${cell.amount.toLocaleString()} ${baseCurrency}` : undefined}
             >

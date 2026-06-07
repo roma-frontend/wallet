@@ -217,9 +217,9 @@ function RecurringRow({ item }: { item: RecurringDoc }) {
     <div className="flex items-center gap-3 p-3 rounded-xl border border-border bg-card">
       <div
         className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-        style={{ background: (category?.color ?? "#888") + "20" }}
+         style={{ background: (category?.color ?? "var(--primary)") + "20" }}
       >
-        <Icon className="w-4 h-4" style={{ color: category?.color ?? "#888" }} />
+        <Icon className="w-4 h-4" style={{ color: category?.color ?? "var(--muted-foreground)" }} />
       </div>
       <div className="flex-1 min-w-0">
         <p className="font-medium truncate">

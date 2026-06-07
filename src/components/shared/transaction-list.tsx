@@ -206,7 +206,7 @@ export function TransactionList({ type }: Props) {
             <SlidersHorizontal className="w-4 h-4" />
             <span className="hidden sm:inline">{t.filters.title}</span>
             {activeCount > 0 && (
-              <span className="flex items-center justify-center min-w-5 h-5 px-1 rounded-full bg-primary text-primary-foreground text-[10px] font-semibold">
+              <span className="flex items-center justify-center min-w-5 h-5 px-1 rounded-full bg-primary text-primary-foreground text-[10px] font-semibold dark:text-white">
                 {activeCount}
               </span>
             )}

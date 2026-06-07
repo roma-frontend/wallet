@@ -143,9 +143,9 @@ export function TransactionRow({ transaction }: Props) {
         >
           <div
             className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-            style={{ background: (category?.color ?? "#64748b") + "20" }}
+            style={{ background: (category?.color ?? "var(--primary)") + "20" }}
           >
-            {createElement(iconComponent, { className: "w-4 h-4", style: { color: category?.color ?? "#64748b" } })}
+            {createElement(iconComponent, { className: "w-4 h-4", style: { color: category?.color ?? "var(--muted-foreground)" } })}
           </div>
 
           <div className="flex-1 min-w-0">
