@@ -3,26 +3,17 @@
 import { useEffect, useRef } from "react";
 import { usePrefsStore, ACCENTS } from "@/store/use-prefs-store";
 
-/**
- * Redraws the favicon as a 32×32 wallet icon tinted with
- * the current accent colour. Runs on mount and whenever the
- * accent preference changes.
- */
 export function DynamicFavicon() {
   const accent = usePrefsStore((s) => s.accent);
-  const prevRef = useRef<string | null>(null);
+  const dataUrlRef = useRef<string>("");
 
-  useEffect(() => {
-    const swatch = ACCENTS.find((a) => a.key === accent)?.swatch;
-    if (!swatch || prevRef.current === accent) return;
-    prevRef.current = accent;
-
+  const draw = (swatch: string) => {
     const size = 32;
     const canvas = document.createElement("canvas");
     canvas.width = size;
     canvas.height = size;
     const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    if (!ctx) return "";
 
     const cx = size / 2;
     const cy = size / 2;
@@ -30,42 +21,29 @@ export function DynamicFavicon() {
     const ringR = size * 0.4;
     const innerGap = 2;
 
-    // Background
     ctx.fillStyle = "transparent";
     ctx.fillRect(0, 0, size, size);
 
-    // Outer ring (gradient tinted with accent)
-    const grad = ctx.createLinearGradient(
-      cx - r,
-      cy - r,
-      cx + r,
-      cy + r,
-    );
+    const grad = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
     grad.addColorStop(0, swatch);
-    grad.addColorStop(
-      1,
-      colorMix(swatch, 0.7),
-    );
+    grad.addColorStop(1, colorMix(swatch, 0.7));
 
     ctx.beginPath();
     ctx.arc(cx, cy, ringR, 0, Math.PI * 2);
     ctx.fillStyle = grad;
     ctx.fill();
 
-    // Inner cutout
     ctx.beginPath();
     ctx.arc(cx, cy, ringR - innerGap, 0, Math.PI * 2);
     ctx.fillStyle = "white";
     ctx.fill();
 
-    // Dot at bottom centre
     const dotY = cy + ringR - innerGap - 1;
     ctx.beginPath();
     ctx.arc(cx, dotY, 1.5, 0, Math.PI * 2);
     ctx.fillStyle = swatch;
     ctx.fill();
 
-    // Strap lines (top)
     ctx.beginPath();
     ctx.moveTo(cx - 3, cy - ringR + innerGap);
     ctx.lineTo(cx - 1, cy - r);
@@ -75,17 +53,24 @@ export function DynamicFavicon() {
     ctx.lineWidth = 0.8;
     ctx.stroke();
 
-    const dataUrl = canvas.toDataURL("image/png");
+    return canvas.toDataURL("image/png");
+  };
 
-    let link = document.querySelector<HTMLLinkElement>(
-      'link[rel="icon"]',
-    );
-    if (!link) {
-      link = document.createElement("link");
-      link.rel = "icon";
-      document.head.appendChild(link);
-    }
-    link.href = dataUrl;
+  const apply = (url: string) => {
+    document
+      .querySelectorAll<HTMLLinkElement>('link[rel="icon"]')
+      .forEach((l) => (l.href = url));
+  };
+
+  useEffect(() => {
+    const swatch = ACCENTS.find((a) => a.key === accent)?.swatch;
+    if (!swatch) return;
+    dataUrlRef.current = draw(swatch);
+    apply(dataUrlRef.current);
+
+    const obs = new MutationObserver(() => apply(dataUrlRef.current));
+    obs.observe(document.head, { childList: true, subtree: true });
+    return () => obs.disconnect();
   }, [accent]);
 
   return null;
