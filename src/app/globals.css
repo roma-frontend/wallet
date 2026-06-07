@@ -56,7 +56,7 @@
    Դրամապանակ — Light theme (emerald / teal fintech palette)
    =========================================================== */
 :root {
-  --background: color-mix(in oklch, oklch(0.985 0 0), var(--primary) 1.5%);
+  --background: oklch(0.985 0 0);
   --foreground: oklch(0.21 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.21 0 0);
@@ -84,7 +84,7 @@
   --chart-4: oklch(0.72 0.16 60);
   --chart-5: oklch(0.62 0.2 12);
   --radius: 0.85rem;
-  --sidebar: color-mix(in oklch, oklch(0.99 0 0), var(--primary) 2%);
+  --sidebar: oklch(0.99 0 0);
   --sidebar-foreground: oklch(0.21 0 0);
   --sidebar-primary: var(--primary);
   --sidebar-primary-foreground: oklch(0.99 0 0);
@@ -99,7 +99,7 @@
    Դրամապանակ — Dark theme
    =========================================================== */
 .dark {
-  --background: color-mix(in oklch, oklch(0.17 0 0), var(--primary) 3%);
+  --background: oklch(0.17 0 0);
   --foreground: oklch(0.96 0 0);
   --card: oklch(14.149% 0.00923 18.208 / 0.241);
   --card-foreground: oklch(0.96 0 0);
@@ -126,7 +126,7 @@
   --chart-3: oklch(0.7 0.15 250);
   --chart-4: oklch(0.78 0.16 65);
   --chart-5: oklch(0.7 0.19 14);
-  --sidebar: color-mix(in oklch, oklch(0.19 0 0), var(--primary) 4%);
+  --sidebar: oklch(0.19 0 0);
   --sidebar-foreground: oklch(0.96 0 0);
   --sidebar-primary: var(--primary);
   --sidebar-primary-foreground: oklch(0.18 0 0);
