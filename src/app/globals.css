@@ -385,7 +385,7 @@ html {
   --primary-foreground: oklch(0.18 0 0);
 }
 [data-accent="rose"] {
-  --primary: oklch(64.734% 0.16362 17.828);
+  --primary: oklch(0.57 0.18 20);
   --primary-foreground: oklch(0.99 0 0);
 }
 

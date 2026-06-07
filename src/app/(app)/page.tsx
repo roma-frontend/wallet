@@ -83,7 +83,7 @@ export default function DashboardPage() {
         <div>
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-balance">
             {greeting()}
-            {name && <span className="text-gradient">, {name}</span>}
+            {name && <span className="text-gradient"> {name}</span>}
           </h1>
           <p className="text-sm text-muted-foreground mt-1">{t.appTagline}</p>
         </div>

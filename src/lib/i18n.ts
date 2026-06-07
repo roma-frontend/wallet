@@ -104,9 +104,9 @@ export const t = {
 
   dashboard: {
     greeting: "Բարև",
-    greetingMorning: "Բարի լույս",
-    greetingDay: "Բարի օր",
-    greetingEvening: "Բարի երեկո",
+    greetingMorning: "Բարի լույս,",
+    greetingDay: "Բարի օր,",
+    greetingEvening: "Բարի երեկո,",
     balance: "Մնացորդ",
     totalIncome: "Ընդհանուր եկամուտ",
     totalExpense: "Ընդհանուր ծախս",

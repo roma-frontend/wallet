@@ -107,7 +107,7 @@ export function DatePicker({ value, onChange, className, placeholder, id }: Prop
                 }}
                 className={cn(
                   "h-8 w-8 rounded-md text-xs tabular transition-colors hover:bg-accent",
-                  iso === selected && "bg-primary text-primary-foreground hover:bg-primary",
+                  iso === selected && "bg-primary text-primary-foreground hover:bg-primary dark:text-white",
                   iso === today && iso !== selected && "ring-1 ring-primary/40",
                 )}
               >
