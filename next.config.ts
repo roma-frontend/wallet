@@ -16,6 +16,18 @@ const nextConfig: NextConfig = {
   compress: true,
   // Hide dev indicators in staging/preview builds (Next.js 16+)
   devIndicators: false,
+  // Allow bfcache: avoid no-store on navigational responses. Convex handles
+  // its own caching; this hint tells Next not to add Cache-Control: no-store
+  // to RSC/HTML responses unless explicitly set by a route handler.
+  headers: async () => [
+    {
+      source: "/(.*)",
+      has: [{ type: "header", key: "x-nextjs-page" }],
+      headers: [
+        { key: "Cache-Control", value: "private, max-age=0, must-revalidate" },
+      ],
+    },
+  ],
 };
 
 export default nextConfig;

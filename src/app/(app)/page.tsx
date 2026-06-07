@@ -147,7 +147,11 @@ export default function DashboardPage() {
             <p className="text-xl md:text-2xl font-bold tabular">
               {formatPercent(Math.max(0, summary.savingsRate))}
             </p>
-            <Progress value={Math.max(0, Math.min(100, summary.savingsRate))} className="mt-3 h-1.5" />
+            <Progress
+              value={Math.max(0, Math.min(100, summary.savingsRate))}
+              aria-label={t.dashboard.savingsRate}
+              className="mt-3 h-1.5"
+            />
             <div className="mt-4 pt-4 border-t border-border/50 space-y-3">
               <div>
                 <p className="text-xs text-muted-foreground">{t.dashboard.savings}</p>
