@@ -84,7 +84,7 @@ export function AiAssistant() {
       {open && (
         <div
           className={cn(
-            "fixed z-50 flex flex-col overflow-hidden rounded-2xl border bg-card shadow-2xl",
+            "fixed z-50 flex flex-col overflow-hidden rounded-2xl border bg-background shadow-2xl",
             "inset-x-3 bottom-20 top-20 md:inset-auto md:bottom-6 md:right-6 md:h-140 md:w-100 md:top-auto",
           )}
         >
