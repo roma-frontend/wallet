@@ -126,7 +126,7 @@ export default function CurrencyPage() {
               </div>
             </div>
 
-            <div className="rounded-xl gradient-primary p-5 text-center text-primary-foreground">
+            <div className="rounded-xl gradient-primary p-5 text-center text-primary-foreground dark:text-white">
               <p className="text-sm opacity-90">
                 {formatNumber(value, 2)} {from} =
               </p>
