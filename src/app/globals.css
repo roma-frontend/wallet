@@ -101,7 +101,7 @@
 .dark {
   --background: color-mix(in oklch, oklch(0.17 0 0), var(--primary) 3%);
   --foreground: oklch(0.96 0 0);
-  --card: oklch(0.16 0 0);
+  --card: oklch(17.882% 0.00164 16.627);
   --card-foreground: oklch(0.96 0 0);
   --popover: oklch(0.16 0 0);
   --popover-foreground: oklch(0.96 0 0);
@@ -384,13 +384,13 @@ html {
   --primary: oklch(0.7 0.17 295);
   --primary-foreground: oklch(0.18 0 0);
 }
-
 [data-accent="rose"] {
-  --primary: oklch(0.62 0.2 12);
+  --primary: oklch(0.55 0.23 18);
   --primary-foreground: oklch(0.99 0 0);
 }
+
 .dark[data-accent="rose"] {
-  --primary: oklch(0.72 0.19 12);
+  --primary: oklch(0.68 0.21 16);
   --primary-foreground: oklch(0.18 0 0);
 }
 

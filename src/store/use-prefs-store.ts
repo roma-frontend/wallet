@@ -10,7 +10,7 @@ export const ACCENTS: { key: AccentKey; label: string; swatch: string }[] = [
   { key: "emerald", label: "Զմրուխտ", swatch: "oklch(0.62 0.14 165)" },
   { key: "ocean", label: "Ովկիան", swatch: "oklch(0.6 0.16 245)" },
   { key: "violet", label: "Մանուշակ", swatch: "oklch(0.58 0.18 295)" },
-  { key: "rose", label: "Վարդագույն", swatch: "oklch(0.62 0.2 12)" },
+  { key: "rose", label: "Վարդագույն", swatch: "oklch(0.55 0.23 18)" },
   { key: "amber", label: "Սաթ", swatch: "oklch(0.7 0.16 70)" },
   { key: "teal", label: "Փիրուզ", swatch: "oklch(0.62 0.13 195)" },
 ];
