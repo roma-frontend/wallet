@@ -35,8 +35,8 @@ function passwordScore(pwd: string): number {
 
 const STRENGTH = [
   { label: t.auth.strengthWeak, color: "bg-destructive" },
-  { label: t.auth.strengthFair, color: "bg-amber-500" },
-  { label: t.auth.strengthGood, color: "bg-emerald-500" },
+  { label: t.auth.strengthFair, color: "bg-warning" },
+  { label: t.auth.strengthGood, color: "bg-success" },
   { label: t.auth.strengthStrong, color: "bg-primary" },
 ];
 

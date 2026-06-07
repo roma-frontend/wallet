@@ -18,9 +18,9 @@ export function AnomalyAlert() {
   if (anomalies.length === 0) return null;
 
   return (
-    <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4">
+    <div className="rounded-2xl border border-warning/30 bg-warning/10 p-4">
       <div className="flex items-center gap-2 mb-3">
-        <AlertTriangle className="w-4.5 h-4.5 text-amber-600 dark:text-amber-400" />
+        <AlertTriangle className="w-4.5 h-4.5 text-warning" />
         <p className="font-semibold text-sm">{t.anomaly.title}</p>
       </div>
       <p className="text-sm text-muted-foreground mb-3">{t.anomaly.spendingMore}</p>
