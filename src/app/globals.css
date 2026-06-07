@@ -101,9 +101,9 @@
 .dark {
   --background: color-mix(in oklch, oklch(0.17 0 0), var(--primary) 3%);
   --foreground: oklch(0.96 0 0);
-  --card: oklch(0.14 0 0);
+  --card: oklch(0.15 0 0);
   --card-foreground: oklch(0.96 0 0);
-  --popover: oklch(0.14 0 0);
+  --popover: oklch(0.15 0 0);
   --popover-foreground: oklch(0.96 0 0);
   --primary: oklch(0.72 0.15 165);
   --primary-foreground: oklch(0.18 0 0);
