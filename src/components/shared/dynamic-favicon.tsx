@@ -5,56 +5,7 @@ import { usePrefsStore, ACCENTS } from "@/store/use-prefs-store";
 
 export function DynamicFavicon() {
   const accent = usePrefsStore((s) => s.accent);
-  const dataUrlRef = useRef<string>("");
-
-  const draw = (swatch: string) => {
-    const size = 32;
-    const canvas = document.createElement("canvas");
-    canvas.width = size;
-    canvas.height = size;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return "";
-
-    const cx = size / 2;
-    const cy = size / 2;
-    const r = size * 0.38;
-    const ringR = size * 0.4;
-    const innerGap = 2;
-
-    ctx.fillStyle = "transparent";
-    ctx.fillRect(0, 0, size, size);
-
-    const grad = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
-    grad.addColorStop(0, swatch);
-    grad.addColorStop(1, colorMix(swatch, 0.7));
-
-    ctx.beginPath();
-    ctx.arc(cx, cy, ringR, 0, Math.PI * 2);
-    ctx.fillStyle = grad;
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(cx, cy, ringR - innerGap, 0, Math.PI * 2);
-    ctx.fillStyle = "white";
-    ctx.fill();
-
-    const dotY = cy + ringR - innerGap - 1;
-    ctx.beginPath();
-    ctx.arc(cx, dotY, 1.5, 0, Math.PI * 2);
-    ctx.fillStyle = swatch;
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.moveTo(cx - 3, cy - ringR + innerGap);
-    ctx.lineTo(cx - 1, cy - r);
-    ctx.moveTo(cx + 3, cy - ringR + innerGap);
-    ctx.lineTo(cx + 1, cy - r);
-    ctx.strokeStyle = swatch;
-    ctx.lineWidth = 0.8;
-    ctx.stroke();
-
-    return canvas.toDataURL("image/png");
-  };
+  const dataUrlRef = useRef("");
 
   const apply = (url: string) => {
     document
@@ -65,7 +16,22 @@ export function DynamicFavicon() {
   useEffect(() => {
     const swatch = ACCENTS.find((a) => a.key === accent)?.swatch;
     if (!swatch) return;
-    dataUrlRef.current = draw(swatch);
+
+    const darker = colorMix(swatch, 0.85);
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop stop-color="${encode(swatch)}"/>
+      <stop offset="1" stop-color="${encode(darker)}"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="url(#g)"/>
+  <rect x="202" y="216" width="110" height="80" rx="16" fill="#fff" fill-opacity="0.95"/>
+  <circle cx="286" cy="270" r="13" fill="${encode(swatch)}"/>
+</svg>`;
+
+    dataUrlRef.current =
+      "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
     apply(dataUrlRef.current);
 
     const obs = new MutationObserver(() => apply(dataUrlRef.current));
@@ -74,6 +40,10 @@ export function DynamicFavicon() {
   }, [accent]);
 
   return null;
+}
+
+function encode(oklchStr: string): string {
+  return oklchStr.replace(/\s+/g, " ").trim();
 }
 
 function colorMix(oklchStr: string, factor: number): string {
