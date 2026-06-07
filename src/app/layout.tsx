@@ -7,6 +7,7 @@ import { PrefsProvider } from "@/components/providers/prefs-provider";
 import { ConvexClientProvider } from "@/components/providers/convex-provider";
 import { PWARegister } from "@/components/providers/pwa-register";
 import { Toaster } from "@/components/ui/sonner";
+import { DynamicFavicon } from "@/components/shared/dynamic-favicon";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 const notoSansArmenian = Noto_Sans_Armenian({
@@ -122,13 +123,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <body className="h-full antialiased">
           <ConvexClientProvider>
             <ThemeProvider>
-              <PrefsProvider>
-                <TooltipProvider delayDuration={200}>
-                  {children}
-                  <Toaster richColors position="top-right" />
-                  <PWARegister />
-                </TooltipProvider>
-              </PrefsProvider>
+                <PrefsProvider>
+                  <DynamicFavicon />
+                  <TooltipProvider delayDuration={200}>
+                    {children}
+                    <Toaster richColors position="top-right" />
+                    <PWARegister />
+                  </TooltipProvider>
+                </PrefsProvider>
             </ThemeProvider>
           </ConvexClientProvider>
         </body>
