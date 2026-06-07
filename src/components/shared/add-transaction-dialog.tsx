@@ -27,7 +27,7 @@ export function AddTransactionDialog({ defaultType, variant = "button", label, t
         aria-label={label ?? t.form.addTransaction}
         className={cn(
           "fixed bottom-20 right-4 z-40 md:hidden w-14 h-14 rounded-2xl shadow-lg",
-          "gradient-primary text-white hover:opacity-90",
+          "gradient-primary hover:opacity-90",
         )}
       >
         <Plus className="w-6 h-6" />
