@@ -385,12 +385,12 @@ html {
   --primary-foreground: oklch(0.18 0 0);
 }
 [data-accent="rose"] {
-  --primary: oklch(0.57 0.18 20);
+  --primary: oklch(0.55 0.23 18);
   --primary-foreground: oklch(0.99 0 0);
 }
 
 .dark[data-accent="rose"] {
-  --primary: oklch(0.7 0.18 18);
+  --primary: oklch(0.68 0.21 16);
   --primary-foreground: oklch(0.18 0 0);
 }
 
