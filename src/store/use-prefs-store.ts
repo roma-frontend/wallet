@@ -6,13 +6,13 @@ export type AccentKey = "emerald" | "ocean" | "violet" | "rose" | "amber" | "tea
 export type Density = "comfortable" | "compact";
 
 /** Selectable accent themes — swatch is the light-mode primary for the picker UI. */
-export const ACCENTS: { key: AccentKey; label: string; swatch: string }[] = [
-  { key: "emerald", label: "Զմրուխտ", swatch: "oklch(0.62 0.14 165)" },
-  { key: "ocean", label: "Ովկիան", swatch: "oklch(0.6 0.16 245)" },
-  { key: "violet", label: "Մանուշակ", swatch: "oklch(0.58 0.18 295)" },
-  { key: "rose", label: "Վարդագույն", swatch: "oklch(0.55 0.23 18)" },
-  { key: "amber", label: "Սաթ", swatch: "oklch(0.7 0.16 70)" },
-  { key: "teal", label: "Փիրուզ", swatch: "oklch(0.62 0.13 195)" },
+export const ACCENTS: { key: AccentKey; label: string; swatch: string; favicon: string; faviconDark: string }[] = [
+  { key: "emerald", label: "Զմրուխտ", swatch: "oklch(0.62 0.14 165)", favicon: "#00a071", faviconDark: "#008356" },
+  { key: "ocean", label: "Ովկիան", swatch: "oklch(0.6 0.16 245)", favicon: "#0086d8", faviconDark: "#006aba" },
+  { key: "violet", label: "Մանուշակ", swatch: "oklch(0.58 0.18 295)", favicon: "#855dd7", faviconDark: "#6c42ba" },
+  { key: "rose", label: "Վարդագույն", swatch: "oklch(0.55 0.23 18)", favicon: "#d7003a", faviconDark: "#b90023" },
+  { key: "amber", label: "Սաթ", swatch: "oklch(0.7 0.16 70)", favicon: "#dc8900", faviconDark: "#b96900" },
+  { key: "teal", label: "Փիրուզ", swatch: "oklch(0.62 0.13 195)", favicon: "#009d9e", faviconDark: "#008082" },
 ];
 
 /** Pages the user can pick as the default landing screen. `navKey` indexes t.nav. */
